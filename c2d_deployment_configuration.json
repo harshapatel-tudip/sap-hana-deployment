@@ -1,0 +1,7 @@
+{
+  "defaultDeploymentType": "SINGLE_VM",
+  "imageName": "sap-hanaexpress-serverinclapps-suselinux12-20003000201804032",
+  "projectId": "sap-public",
+  "templateName": "nonexistent_template",
+  "useSolutionPackage": "true"
+}

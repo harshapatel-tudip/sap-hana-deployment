@@ -1,0 +1,6 @@
+imports:
+- path: sap-hanaexpress-serverinclapps.jinja
+
+resources:
+- name: sap-hanaexpress-serverinclapps
+  type: sap-hanaexpress-serverinclapps.jinja

@@ -1,0 +1,149 @@
+description:
+  author:
+    title: SAP
+    descriptionHtml: 'SAP is the world leader in enterprise applications in terms of software and software-related service revenue. Based on market capitalization, we are the world’s third largest independent software manufacturer.'
+    shortDescription: SAP SE is a German multinational software corporation that makes enterprise software to manage business operations and customer relations
+    url: 'http://go.sap.com/'
+  descriptionHtml: 'SAP HANA, express edition is a streamlined version of the SAP HANA platform which enables developers to jumpstart application development in the cloud or from a personal computer to build and deploy modern applications that use up to 32GB memory – without incurring any license fees. SAP HANA, express edition includes the in-memory data engine with advanced analytical data processing engines for business, text, spatial and graph data - supporting multiple data models on a single copy of the data The software license allows for both non-production and production use cases, enabling you to quickly prototype, demo and deploy next-generation applications with SAP HANA, express edition.'
+  logo: '@media/sap-hanaexpress-serverinclapps_store.png'
+  tagline: In-memory Platform for Business Digital Transformation
+  title: 'SAP HANA, express edition (server + applications)'
+  url: 'http://developers.sap.com/sap-hana-express'
+  version: HANA 2.0 SP03
+  eulaUrl: 'https://www.sap.com/docs/download/cmp/2016/06/sap-hana-express-dev-agmt-and-exhibit.pdf'
+  documentations:
+    - title: Getting Started Guide
+      url: 'https://www.sap.com/developer/tutorials/hxe-gcp-getting-started-launcher-xsa.html'
+      description: 'Embark on Your Application Development Journey with SAP HANA, Express Edition'
+      destinations:
+        - DESTINATION_SOLUTION_DETAILS
+        - DESTINATION_POST_DEPLOY
+    - title: FAQ
+      url: 'http://www.sap.com/documents/2016/09/88baee6d-897c-0010-82c7-eda71af511fa.html'
+      description: 'Frequently Asked Questions About SAP HANA, express edition'
+      destinations:
+        - DESTINATION_SOLUTION_DETAILS
+        - DESTINATION_POST_DEPLOY
+    - title: Self-learning Video playlist
+      url: 'https://www.youtube.com/playlist?list=PLkzo92owKnVy6nOZMFZIZxcvBCoRdshsR'
+      description: A series of self-learning video to help you start with SAP HANA Express Edition
+      destinations:
+        - DESTINATION_SOLUTION_DETAILS
+        - DESTINATION_POST_DEPLOY
+    - title: 'Introduction: SAP HANA, express edition'
+      url: 'http://www.slideshare.net/ZhibinJordanCao/sap-hana-express-edition-introduction-deck'
+      description: Provide general introduction to help you know SAP HANA Express Edition
+      destinations:
+        - DESTINATION_SOLUTION_DETAILS
+        - DESTINATION_POST_DEPLOY
+    - title: Tutorial
+      url: 'http://www.sap.com/developer/topics/sap-hana-express.tutorials.html'
+      description: Follow those tutorials to start your journey on SAP HANA Express Edition quickly
+      destinations:
+        - DESTINATION_SOLUTION_DETAILS
+        - DESTINATION_POST_DEPLOY
+    - title: SAP HANA Platform Help
+      url: 'https://help.sap.com/hana'
+      description: SAP HANA official help website
+      destinations:
+        - DESTINATION_SOLUTION_DETAILS
+        - DESTINATION_POST_DEPLOY
+  support:
+    - title: Support
+      descriptionHtml: 'SAP HANA, express edition is a community supported version of the software.'
+      url: 'https://www.sap.com/developer/topics/sap-hana-express.community.html'
+  softwareGroups:
+    - type: SOFTWARE_GROUP_OS
+      software:
+        - title: SUSE Linux Enterprise 12
+  icon: '@media/sap-hanaexpress-serverinclapps_small.png'
+input:
+  properties:
+    - name: zone
+      title: Zone
+    - name: machineType
+      title: Machine type
+    - name: bootDiskType
+      title: Disk type
+      section: BOOT_DISK
+    - name: bootDiskSizeGb
+      title: Disk size in GB
+      section: BOOT_DISK
+    - name: network
+      title: Network name
+      section: NETWORKING
+    - name: subnetwork
+      title: Subnetwork name
+      section: NETWORKING
+    - name: externalIP
+      title: External IP
+      tooltip: 'An external IP address associated with this instance. Selecting "None" will result in the instance having no external internet access. <a href="https://cloud.google.com/compute/docs/configure-instance-ip-addresses">Learn more</a>'
+      section: NETWORKING
+      level: 1
+    - name: tcpSingleSourceRanges
+      title: Source IP ranges for HANA traffic
+      tooltip: 'Traffic is only allowed from sources within these IP address ranges. Use CIDR notation when entering ranges. <a href="https://cloud.google.com/compute/docs/networking#firewalls">Learn more</a>'
+      placeholder: '0.0.0.0/0, 192.169.0.2/24'
+      section: NETWORKING
+      level: 1
+    - name: tcpXSASourceRanges
+      title: Source IP ranges XSA traffic
+      tooltip: 'Traffic is only allowed from sources within these IP address ranges. Use CIDR notation when entering ranges. <a href="https://cloud.google.com/compute/docs/networking#firewalls">Learn more</a>'
+      placeholder: '0.0.0.0/0, 192.169.0.2/24'
+      section: NETWORKING
+      level: 1
+    - name: enableTcpSingle
+      title: Allow HANA Port traffic
+      section: NETWORKING
+      boolean_group: FIREWALL
+    - name: enableTcpXSA
+      title: Allow XSA Port traffic
+      section: NETWORKING
+      boolean_group: FIREWALL
+    - name: ipForward
+      title: IP forwarding
+      tooltip: 'Forwarding allows the instance to help route packets. <a href="https://cloud.google.com/compute/docs/networking#canipforward">Learn more</a>'
+      section: NETWORKING
+      level: 1
+  sections:
+    - name: BOOT_DISK
+      title: Boot Disk
+      tooltip: Each instance requires a disk to boot from.
+    - name: NETWORKING
+      title: Networking
+  boolean_groups:
+    - name: FIREWALL
+      title: Firewall
+      tooltip: 'By default all incoming traffic from outside a network is blocked. Select the type of network traffic you want to allow. <a href="https://cloud.google.com/compute/docs/networking#firewalls">Learn more</a>'
+      subtext: Add tags and firewall rules to allow specific network traffic from the Internet
+runtime:
+  deployingMessage: Deployment can take several minutes to complete.
+  applicationTable:
+    rows:
+      - label: Instance
+        value: '<a href="{{ consoleUrl(outputs().vmSelfLink) }}">{{ outputs().vmName }}</a>'
+      - label: Instance zone
+        value: '{{ properties().zone }}'
+      - label: Instance machine type
+        value: '{{ properties().machineType }}'
+  primaryButton:
+    label: SSH
+    type: TYPE_GCE_VM_SSH
+    action: '{{ outputs().vmSelfLink }}'
+  requiredActions:
+    - heading: Getting Started Guide
+      description: '<a href="https://www.sap.com/developer/tutorials/hxe-gcp-getting-started-launcher-xsa.html">Follow this tutorial for instructions</a>'
+  suggestedActions:
+    - heading: Post Deployment Configuration
+      description: 'Before attempting to connect to SAP HANA, express edition, please run the following command to complete the installation.     This configures security settings for your deployment.'
+      snippet: sudo su - hxeadm
+    - heading: Prepare your instance for Tutorials
+      description: 'The SAP HANA, express edition launch page has a number of tutorials to help you to get started.    Follow the instructions to configure your deployment for the tutorials.'
+      snippet: 'https://www.sap.com/developer/groups/hxe-install-gcp.html'
+    - heading: Assign a static external IP address to your VM instance
+      description: 'An ephemeral external IP address has been assigned to the VM instance. If you require a static external IP address, you may promote the address to static. <a href="https://cloud.google.com/compute/docs/instances-and-network#promote_ephemeral_ip">Learn more</a>'
+      showIf: '{{ properties().externalIP == "Ephemeral" }}'
+annotations:
+  autogenSpecType: SINGLE_VM
+  vmImage0: 'https://www.googleapis.com/compute/v1/projects/sap-public/global/images/sap-hanaexpress-serverinclapps-suselinux12-20003000201804032'
+metadata_version: v1

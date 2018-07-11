@@ -1,0 +1,101 @@
+imports:
+  - name: common.py
+    path: common.py
+  - name: default.py
+    path: default.py
+  - name: password.py
+    path: password.py
+  - name: path_utils.jinja
+    path: path_utils.jinja
+  - name: vm_instance.py
+    path: vm_instance.py
+
+info:
+  version: 1.0
+  title: SAP HANA, express edition (server + applications) Template
+
+required:
+  - zone
+  - machineType
+  - network
+  - bootDiskType
+  - bootDiskSizeGb
+
+properties:
+  zone:
+    type: string
+    default: us-central1-f
+    x-googleProperty:
+      type: GCE_ZONE
+  machineType:
+    type: string
+    default: n1-highmem-4
+    x-googleProperty:
+      type: GCE_MACHINE_TYPE
+      zoneProperty: zone
+      gceMachineType:
+        minCpu: 4
+        minRamGb: 25.9990234375
+  network:
+    type: string
+    default: default
+    x-googleProperty:
+      type: GCE_NETWORK
+  subnetwork:
+    type: string
+    x-googleProperty:
+      type: GCE_SUBNETWORK
+      zoneProperty: zone
+      gceSubnetwork:
+        networkProperty: network
+  externalIP:
+    type: string
+    enum:
+      - Ephemeral
+      - None
+    default: Ephemeral
+  ipForward:
+    type: string
+    enum:
+      - 'On'
+      - 'Off'
+    default: 'On'
+  bootDiskType:
+    type: string
+    default: pd-ssd
+    x-googleProperty:
+      type: GCE_DISK_TYPE
+      zoneProperty: zone
+  bootDiskSizeGb:
+    type: integer
+    default: 70
+    minimum: 70
+    maximum: 10000
+    x-googleProperty:
+      type: GCE_DISK_SIZE
+      gceDiskSize:
+        diskTypeProperty: bootDiskType
+  enableTcpSingle:
+    type: boolean
+    default: True
+  enableTcpXSA:
+    type: boolean
+    default: True
+  tcpSingleSourceRanges:
+    type: string
+  tcpXSASourceRanges:
+    type: string
+
+outputs:
+  deployment:
+    type: string
+  project:
+    type: string
+  vmId:
+    type: string
+  vmInternalIP:
+    type: string
+  vmName:
+    type: string
+  vmSelfLink:
+    type: string
